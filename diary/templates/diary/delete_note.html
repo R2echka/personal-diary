@@ -1,0 +1,25 @@
+{% extends 'diary/base.html' %}
+{% block content %}
+<form class="row" method="post" enctype="multipart/form-data" style="width: 90vw;">
+    {% csrf_token %}
+    <div class="row g-0">
+        <div class="col-md-6">
+            <div class="col-4" style="position: absolute; margin: 2em 32vw;">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">{{ note.title }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="list-unstyled mt-3 mb-4 text-start m-3">
+                            {{ note.note }}
+                        </p>
+                        <button type="submit" class="btn btn-outline-danger">
+                            Удалить
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
