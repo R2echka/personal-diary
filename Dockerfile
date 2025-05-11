@@ -1,6 +1,6 @@
 FROM python:3.12
 
-WORKDIR /lms
+WORKDIR /diary
 
 RUN apt-get update && apt-get install -y \
     gcc \
@@ -8,10 +8,9 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-COPY pyproject.toml poetry.lock ./
+COPY requirements.txt ./
 
-RUN pip install poetry && \
-poetry install --no-root
+RUN pip install -r requirements.txt
 
 COPY . .
 

@@ -4,9 +4,8 @@
     <form class="d-flex" role="search" method="GET" action="{% url 'diary:notes' %}">
         <input class="form-control me-2" type="search" name="search" placeholder="Поиск" aria-label="Search">
         <button class="btn btn-outline-info" type="submit">Поиск</button>
-    </form>
+    </form>    
         {% for note in notes %}
-        {% if user == note.owner %}
         <div class="card" style="width: 18rem; margin: 0.2em;">
             <div class="card-body">
                 {% if note.title %}
@@ -17,7 +16,6 @@
                 <a type="button" class="btn btn-outline-danger" href="{% url 'diary:delete_note' note.pk %}">Удалить</a>
             </div>
         </div>
-        {% endif %}
         {% endfor %}
     </div>
 {% endblock %}
