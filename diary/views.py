@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
@@ -56,8 +57,20 @@ class UpdateNote(LoginRequiredMixin, UpdateView):
     template_name = "diary/note_form.html"
     success_url = reverse_lazy("diary:notes")
 
+    def get_form_class(self):
+        user = self.request.user
+        if user == self.object.owner:
+            return self.form_class
+        raise PermissionDenied
+
 
 class DeleteNote(LoginRequiredMixin, DeleteView):
     model = Note
     template_name = "diary/delete_note.html"
     success_url = reverse_lazy("diary:notes")
+
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.owner != request.user:
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
