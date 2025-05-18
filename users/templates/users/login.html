@@ -1,0 +1,20 @@
+{% extends 'diary/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-8" style="position: absolute; margin-left:10vw; margin-top:5vh;">
+            <form class="row" method="post" enctype="multipart/form-data">
+                <div class="card">
+                    <div class="card-body" style="display:flex;flex-direction: column;">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                    </div>
+                    <button type="submit" class="btn btn-outline-light">
+                        Войти
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
